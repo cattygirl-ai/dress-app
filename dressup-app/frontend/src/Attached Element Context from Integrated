@@ -1,0 +1,97 @@
+Attached Element Context from Integrated Browser
+
+Element: button.match3-tile
+
+URL: http://localhost:5173/
+
+HTML Path: div#root > main.app-shell.showcase-shell > div.match3-overlay > div.match3-panel > div.match3-grid > div.match3-row > button.match3-tile
+
+Outer HTML:
+```html
+<button type="button" class="match3-tile  " aria-label="Teacup" title="Teacup"><img class="tile-img" src="/src/assets/teacup_3match.png" style="transform: translateY(-0.0830753px) rotate(-0.0956576deg);"></button>
+```
+
+Dimensions:
+- top: 15px
+- left: 735px
+- width: 127px
+- height: 127px
+
+CSS:
+```css
+* { box-sizing: border-box; }
+button, input, textarea, select { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+.match3-tile { width: 100%;
+  aspect-ratio: 1 / 1;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+
+  cursor: pointer; }
+
+/* Pseudo-elements */
+::selection { background: rgba(123, 96, 157, 0.2); }
+
+/* Inherited */
+:root { font-family: "Jersey 10", monospace; line-height: 1.5; font-weight: 400; color: #271f35 }
+
+/* Resolved values */
+margin: 0px /*UA*/;
+border-radius: 0px;
+border: 0px none rgb(0, 0, 0);
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+appearance: auto /*UA*/;
+aspect-ratio: 1 / 1;
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgba(0, 0, 0, 0);
+background-image: none;
+background-origin: padding-box;
+background-position-x: 50%;
+background-position-y: 50%;
+background-repeat: no-repeat;
+background-size: contain;
+box-shadow: none;
+box-sizing: border-box;
+color: rgb(0, 0, 0);
+cursor: pointer;
+display: block;
+font-family: "Jersey 10", monospace;
+font-feature-settings: normal;
+font-kerning: auto;
+font-optical-sizing: auto;
+font-size: 16px;
+font-size-adjust: none;
+font-stretch: 100%;
+font-style: normal;
+font-variant-alternates: normal;
+font-variant-caps: normal;
+font-variant-east-asian: normal;
+font-variant-emoji: normal;
+font-variant-ligatures: normal;
+font-variant-numeric: normal;
+font-variant-position: normal;
+font-variation-settings: normal;
+font-weight: 400;
+height: 126.672px;
+letter-spacing: normal /*UA*/;
+line-height: 24px;
+padding-block-end: 1px /*UA*/;
+padding-block-start: 1px /*UA*/;
+padding-inline-end: 6px /*UA*/;
+padding-inline-start: 6px /*UA*/;
+text-align: center /*UA*/;
+text-indent: 0px /*UA*/;
+text-rendering: auto /*UA*/;
+text-shadow: none /*UA*/;
+text-transform: none /*UA*/;
+width: 126.672px;
+word-spacing: 0px /*UA*/;
+```

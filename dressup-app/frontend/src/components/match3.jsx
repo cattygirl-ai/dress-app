@@ -69,7 +69,6 @@ function makeBoardNoMatches() {
 
 function collectMatchMetadata(board) {
   const matched = new Set();
-  const verticalRuns = Array.from({ length: COLS }, () => ({ type: null, startRow: 0, length: 0 }));
 
   const markRun = (orientation, startRow, startCol, length) => {
     if (length < 3) return;
@@ -159,7 +158,9 @@ function loadSave() {
     const save = JSON.parse(raw);
     if (save.version !== SAVE_VERSION) return null;
     return save;
-  } catch { return null; }
+  } catch {
+    return null;
+  }
 }
 
 function checkLevelComplete(levelObj, progress) {
@@ -210,18 +211,18 @@ export default function Match3({ onClose, onCoinsEarned }) {
         STORAGE_KEY,
         JSON.stringify({ version: SAVE_VERSION, board, levelIndex, movesLeft, levelProgress, unlockedLevels })
       );
-    } catch {}
+    } catch {
+      // ignore storage errors
+    }
   }, [board, levelIndex, movesLeft, levelProgress, unlockedLevels]);
 
   const getSwipeDirection = (dx, dy) => Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up");
 
   const resolveCascade = async (startBoard) => {
     let nb = startBoard.map((r) => r.slice());
-    let cascadeIndex = 0;
     while (true) {
       const meta = collectMatchMetadata(nb);
       if (!meta.hasMatch) break;
-      cascadeIndex += 1;
 
       // count collect progress for this step and total cleared for score
       let collectThis = 0;

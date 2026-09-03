@@ -10,6 +10,11 @@ import pose3 from "./assets/new_assets/pose_3.png";
 import pose4 from "./assets/new_assets/pose_4.png";
 import pose5 from "./assets/new_assets/pose_5.png";
 
+import coinsIcon from "./assets/coins.png";
+import closetIcon from "./assets/closet.png";
+import workIcon from "./assets/work.png";
+import scrapbookIcon from "./assets/scrapbook.png";
+
 import blondeHair from "./assets/new_assets/hair_3.png";
 import brownHair from "./assets/new_assets/hair_1.png";
 import pinkHair from  "./assets/new_assets/hair_2.png";
@@ -33,7 +38,7 @@ import greenDress from "./assets/new_assets/dress_3.png";
   const [isStarted, setIsStarted] = useState(false);
   const [showWorkGame, setShowWorkGame] = useState(false);
   const poses = [pose1, pose2, pose3, pose4, pose5];
-  const [poseIndex, setPoseIndex] = useState(0);
+  const [poseIndex] = useState(0);
   const [showCloset, setShowCloset] = useState(false);
   const [ownedItems, setOwnedItems] = useState(() => ({
     Hair: ["blonde"],
@@ -46,7 +51,9 @@ import greenDress from "./assets/new_assets/dress_3.png";
   const [scrapbookPhotos, setScrapbookPhotos] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('scrapbook_photos') || '[]');
-    } catch (e) { return []; }
+    } catch {
+      return [];
+    }
   });
 
   const hairOptions = [
@@ -115,7 +122,11 @@ import greenDress from "./assets/new_assets/dress_3.png";
           type="button"
           className="start-button"
           onClick={() => {
-            try { localStorage.removeItem('match3_save'); } catch {}
+            try {
+              localStorage.removeItem('match3_save');
+            } catch {
+              // ignore storage errors
+            }
             setIsStarted(true);
           }}
         >
@@ -129,30 +140,29 @@ import greenDress from "./assets/new_assets/dress_3.png";
     return (
       <main className="app-shell showcase-shell">
         <div className="game-hud" aria-label="Game hub">
-          <div className="hud-coins" aria-label="Coins earned">
-            <span className="hud-label">Coins</span>
-            <strong>{moneyEarned}</strong>
+          <div className="hud-left-rail" aria-label="Coins, closet, work, and scrapbook controls">
+            <div className="hud-coins" aria-label="Coins earned">
+              <img src={coinsIcon} alt="coins" className="hud-icon" />
+              <strong>{moneyEarned}</strong>
+            </div>
+
+            <button type="button" className="hud-icon-button" onClick={() => setShowCloset(true)} title="Closet">
+              <img src={closetIcon} alt="Closet" />
+            </button>
+
+            <button
+              type="button"
+              className="hud-icon-button"
+              onClick={() => setShowWorkGame(true)}
+              title="Work"
+            >
+              <img src={workIcon} alt="Work" />
+            </button>
+
+            <button type="button" className="hud-icon-button" onClick={() => setShowScrapbook(true)} title="Scrapbook">
+              <img src={scrapbookIcon} alt="Scrapbook" />
+            </button>
           </div>
-
-          <button type="button" className="hud-button hud-top-right">
-            Closet
-          </button>
-
-          <button type="button" className="hud-button hud-top-right" onClick={() => setShowCloset(true)}>
-            Closet
-          </button>
-
-          <button
-            type="button"
-            className="hud-button hud-bottom-left"
-            onClick={() => setShowWorkGame(true)}
-          >
-            Work
-          </button>
-
-          <button type="button" className="hud-button hud-bottom-right" onClick={() => setShowScrapbook(true)}>
-            Scrapbook
-          </button>
         </div>
 
         <section className="showcase-stage" aria-label="Created character">
@@ -166,7 +176,7 @@ import greenDress from "./assets/new_assets/dress_3.png";
         )}
         {showCloset && (
           <div className="modal-overlay">
-            <div className="modal-card">
+            <div className="modal-card closet-modal-card">
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <h3>Closet</h3>
                 <button onClick={() => setShowCloset(false)}>Close</button>
@@ -205,12 +215,20 @@ import greenDress from "./assets/new_assets/dress_3.png";
                 onTakePhoto={async (dataUrl) => {
                   const next = [dataUrl, ...scrapbookPhotos];
                   setScrapbookPhotos(next);
-                  try { localStorage.setItem('scrapbook_photos', JSON.stringify(next)); } catch {}
+                  try {
+                    localStorage.setItem('scrapbook_photos', JSON.stringify(next));
+                  } catch {
+                    // ignore storage errors
+                  }
                 }}
                 onDeletePhoto={(index) => {
                   const next = scrapbookPhotos.filter((_,i) => i !== index);
                   setScrapbookPhotos(next);
-                  try { localStorage.setItem('scrapbook_photos', JSON.stringify(next)); } catch {}
+                  try {
+                    localStorage.setItem('scrapbook_photos', JSON.stringify(next));
+                  } catch {
+                    // ignore storage errors
+                  }
                 }}
               />
             </div>
